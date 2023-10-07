@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -82,7 +83,7 @@
     <div class="pre-loader">
       <div class="pre-loader-box">
         <div class="loader-logo">
-          <img src="{% static 'vendors/images/revpng.png' %}" alt="" />
+          <img src="{% static 'vendors/images/deskapp-logo.svg' %}" alt="" />
         </div>
         <div class="loader-progress" id="progress_div">
           <div class="bar" id="bar1"></div>
@@ -95,27 +96,45 @@
     <div class="header">
       <div class="header-left">
         <div class="menu-icon dw dw-menu"></div>
-        <div class="header-search">
-          <form>
-            <div class="form-group mb-0">
+        <div
+          class="search-toggle-icon dw dw-search2"
+          data-toggle="header_search"
+        ></div>
+        <div class="header-search" style="display: flex; align-items: center">
+          <form
+            method="POST"
+            action="{% url 'index' %}"
+            style="display: flex; align-items: center"
+          >
+            {% csrf_token %}
+            <div class="form-group mb-0" style="flex: 1">
+              <i class="dw dw-search2 search-icon"></i>
               <input
                 type="text"
+                name="app_id"
                 class="form-control search-input"
-                placeholder="Search Here"
+                placeholder="Enter App ID"
               />
-              <i class="dw dw-search2 search-icon"></i>
             </div>
+            <button type="submit" class="btn btn-primary">Search</button>
           </form>
         </div>
-        <button class="btn btn-primary">Search</button>
       </div>
     </div>
 
     <div class="left-side-bar">
       <div class="brand-logo">
         <a href="index.html">
-          <img src="{% static 'vendors/images/' %}" alt="" class="dark-logo" />
-          <img src="{% static 'vendors/images/' %}" alt="" class="light-logo" />
+          <img
+            src="{% static 'vendors/images/deskapp-logo.svg' %}"
+            alt=""
+            class="dark-logo"
+          />
+          <img
+            src="{% static 'vendors/images/deskapp-logo-white.svg' %}"
+            alt=""
+            class="light-logo"
+          />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
           <i class="ion-close-round"></i>
@@ -130,10 +149,10 @@
                 ><span class="mtext">Home</span>
               </a>
               <ul class="submenu">
-                <li><a href="index.html">Dashboard style 1</a></li>
+                <li><a href="index.html">Dashboard</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-edit2"></span
                 ><span class="mtext">Forms</span>
@@ -142,24 +161,28 @@
                 <li><a href="form-pickers.html">Form Pickers</a></li>
                 <li><a href="image-dropzone.html">Image Dropzone</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-library"></span
                 ><span class="mtext">Tables</span>
               </a>
               <ul class="submenu">
-                <li><a href="basic-table.html">Basic Tables</a></li>
+                <li>
+                  <a href="{% url 'analyze_sentiment_and_priority' %}"
+                    >Basic Tables</a
+                  >
+                </li>
                 <li><a href="datatable.html">DataTables</a></li>
               </ul>
             </li>
-            <li>
+            <!-- <li>
               <a href="calendar.html" class="dropdown-toggle no-arrow">
                 <span class="micon dw dw-calendar1"></span
                 ><span class="mtext">Calendar</span>
               </a>
-            </li>
-            <li class="dropdown">
+            </li> -->
+            <!-- <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-apartment"></span
                 ><span class="mtext"> UI Elements </span>
@@ -167,7 +190,7 @@
               <ul class="submenu">
                 <li><a href="ui-timeline.html">Timeline</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-analytics-21"></span
@@ -179,7 +202,7 @@
                 <li><a href="apexcharts.html">Apexcharts</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-browser2"></span
                 ><span class="mtext">Error Pages</span>
@@ -188,9 +211,9 @@
                 <li><a href="400.html">400</a></li>
                 <li><a href="503.html">503</a></li>
               </ul>
-            </li>
+            </li> -->
 
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-copy"></span
                 ><span class="mtext">Extra Pages</span>
@@ -199,27 +222,27 @@
                 <li><a href="blog-detail.html">Blog Detail</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
               </ul>
-            </li>
+            </li> -->
 
             <li>
-              <a href="chat.html" class="dropdown-toggle no-arrow">
+              <a href="{% url 'chat_page' %}" class="dropdown-toggle no-arrow">
                 <span class="micon dw dw-chat3"></span
                 ><span class="mtext">Chat</span>
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a href="invoice.html" class="dropdown-toggle no-arrow">
                 <span class="micon dw dw-invoice"></span
                 ><span class="mtext">Invoice</span>
               </a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <div class="dropdown-divider"></div>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <div class="sidebar-small-cap">Extra</div>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon dw dw-edit-2"></span
                 ><span class="mtext">Documentation</span>
@@ -227,7 +250,7 @@
               <ul class="submenu">
                 <li><a href="introduction.html">Introduction</a></li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -252,151 +275,58 @@
                 allowing you to gauge satisfaction levels accurately. What sets
                 it apart is its ability to prioritize negative reviews, helping
                 you identify and address critical issues promptly. Visualize
-                trends effortlessly through intuitive data representation. Try
-                it now and unlock the insights within your user reviews.
+                trends effortlessly through intuitive data representation. Plus,
+                it's highly customizable to suit your specific software or
+                industry needs.
               </p>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xl-3 mb-30">
-            <div class="card-box height-100-p widget-style1">
-              <div class="d-flex flex-wrap align-items-center">
-                <div class="progress-data">
-                  <div id="chart"></div>
-                </div>
-                <div class="widget-data">
-                  <div class="h4 mb-0">2020</div>
-                  <div class="weight-600 font-14">Contact</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 mb-30">
-            <div class="card-box height-100-p widget-style1">
-              <div class="d-flex flex-wrap align-items-center">
-                <div class="progress-data">
-                  <div id="chart2"></div>
-                </div>
-                <div class="widget-data">
-                  <div class="h4 mb-0">400</div>
-                  <div class="weight-600 font-14">Deals</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 mb-30">
-            <div class="card-box height-100-p widget-style1">
-              <div class="d-flex flex-wrap align-items-center">
-                <div class="progress-data">
-                  <div id="chart3"></div>
-                </div>
-                <div class="widget-data">
-                  <div class="h4 mb-0">350</div>
-                  <div class="weight-600 font-14">Campaign</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 mb-30">
-            <div class="card-box height-100-p widget-style1">
-              <div class="d-flex flex-wrap align-items-center">
-                <div class="progress-data">
-                  <div id="chart4"></div>
-                </div>
-                <div class="widget-data">
-                  <div class="h4 mb-0">$6060</div>
-                  <div class="weight-600 font-14">Worth</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-8 mb-30">
-            <div class="card-box height-100-p pd-20">
-              <h2 class="h4 mb-20">Activity</h2>
-              <div id="chart5"></div>
-            </div>
-          </div>
-          <div class="col-xl-4 mb-30">
-            <div class="card-box height-100-p pd-20">
-              <h2 class="h4 mb-20">Lead Target</h2>
-              <div id="chart6"></div>
-            </div>
-          </div>
-        </div>
 
-        <div class="card-box mb-30">
-          <h2 class="h4 pd-20">User Review</h2>
-          <div class="table-container">
-            <style>
-              .table-container {
-                overflow-x: auto;
-              }
-
-              .table-responsive {
-                max-width: 100%;
-                overflow-x: auto;
-              }
-
-              .dataTable {
-                min-width: 100%;
-              }
-            </style>
-            <table
-              class="data-table table wrap dataTable no-footer dtr-inline collapsed"
-              id="DataTables_Table_0"
-              syle="min-width: 200px"
-            >
-              <!-- Table content remains the same -->
+        <div class="card-box mb-30" style="overflow-x: auto">
+          <h2 class="h4 pd-20">Reviews</h2>
+          <div style="overflow-x: auto">
+            <table class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th
-                    class="table-plus datatable-nosort"
-                    style="min-width: 80px"
-                  >
-                    User Image
-                  </th>
-                  <th>User Name</th>
-                  <th style="min-width: 300px">Content</th>
-                  <th>Score</th>
-                  <th>Thumbs Up Count</th>
-                  <th>Review Created Version</th>
-                  <th>Review Date</th>
-                  <th>Reply Content</th>
-                  <th>Replied At</th>
-                  <th>App Version</th>
+                  <th style="width: 10%">User Image</th>
+                  <th style="width: 10%">User Name</th>
+                  <th style="width: 20%">Content</th>
+                  <th style="width: 5%">Score</th>
+                  <th style="width: 10%">Thumbs Up Count</th>
+                  <th style="width: 10%">Review Created Version</th>
+                  <th style="width: 10%">Review Date</th>
+                  <th style="width: 20%">Reply Content</th>
+                  <th style="width: 10%">Replied At</th>
+                  <th style="width: 5%">App Version</th>
                 </tr>
               </thead>
               <tbody>
+                {% for review in app_reviews %}
                 <tr>
-                  <td class="table-plus">
+                  <td style="text-align: center">
                     <img
-                      src="https://play-lh.googleusercontent.com/a-/ACB-R5SD1-dqPnM8Vs4DU51nEPdWLc0xef_jyLYx_KW0RQ"
+                      src="{{ review.userImage }}"
                       width="70"
                       height="70"
                       alt=""
                     />
                   </td>
-                  <td>LiviaBrannock</td>
-                  <td>
-                    The graphics are just the cutest, this game always makes me
-                    smile. I do wish there were less reliance on ads, this
-                    definitely makes the game less relaxing. I'd love it a lot
-                    more if you could get coins by solving some sort of puzzle
-                    instead!! EDIT: With the updates there is less reliance on
-                    ads and a mini-game! If I could give this app more than 5
-                    stars I definitely would!
+                  <td style="text-align: center">{{ review.userName }}</td>
+                  <td style="word-wrap: break-word">{{ review.content }}</td>
+                  <td style="text-align: center">{{ review.score }}</td>
+                  <td style="text-align: center">{{ review.thumbsUpCount }}</td>
+                  <td style="text-align: center">
+                    {{ review.reviewCreatedVersion }}
                   </td>
-                  <td>5</td>
-                  <td>239</td>
-                  <td>1.32.0</td>
-                  <td>2021-03-25 15:52:53</td>
-                  <td>None</td>
-                  <td>None</td>
-                  <td>1.32.0</td>
+                  <td style="text-align: center">{{ review.at }}</td>
+                  <td style="word-wrap: break-word">
+                    {{ review.replyContent }}
+                  </td>
+                  <td style="text-align: center">{{ review.repliedAt }}</td>
+                  <td style="text-align: center">{{ review.appVersion }}</td>
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -418,20 +348,5 @@
     <script src="{% static 'src/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'src/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script>
     <script src="{% static 'vendors/scripts/dashboard.js' %}"></script>
-
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Include DataTables and its CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"
-    />
-    <script
-      type="text/javascript"
-      charset="utf8"
-      src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"
-    ></script>
   </body>
 </html>
