@@ -1,352 +1,72 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <!-- Basic Page Info -->
-    <meta charset="utf-8" />
-    <title>RevAnalytix - Dashboard</title>
-
-    <!-- Site favicon -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="{% static 'vendors/images/apple-touch-icon.png' %}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="{% static 'vendors/images/favicon-32x32.png' %}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="{% static 'vendors/images/favicon-16x16.png' %}"
-    />
-
-    <!-- Mobile Specific Metas -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
-
-    <!-- Google Font -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <!-- CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'vendors/styles/core.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'vendors/styles/icon-font.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'src/plugins/datatables/css/dataTables.bootstrap4.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'src/plugins/datatables/css/responsive.bootstrap4.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'vendors/styles/style.css' %}"
-    />
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "UA-119386393-1");
-    </script>
-  </head>
-  <body>
-    <div class="pre-loader">
-      <div class="pre-loader-box">
-        <div class="loader-logo">
-          <img src="{% static 'vendors/images/deskapp-logo.svg' %}" alt="" />
-        </div>
-        <div class="loader-progress" id="progress_div">
-          <div class="bar" id="bar1"></div>
-        </div>
-        <div class="percent" id="percent1">0%</div>
-        <div class="loading-text">Loading...</div>
+{% extends 'base.html' %} {% block index %} {% load static %}
+<div class="pd-ltr-20">
+  <div class="card-box pd-20 height-100-p mb-30">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <img src="{% static 'vendors/images/banner-img.png' %}" alt="" />
+      </div>
+      <div class="col-md-8">
+        <h4 class="font-20 weight-500 mb-10 text-capitalize">
+          Welcome To
+          <div class="weight-600 font-30 text-blue">RevAnalytix</div>
+        </h4>
+        <p class="font-18 max-width-600">
+          Discover the power of our software review analysis tool. With
+          precision sentiment analysis, it delves deep into user feedback,
+          allowing you to gauge satisfaction levels accurately. What sets it
+          apart is its ability to prioritize negative reviews, helping you
+          identify and address critical issues promptly. Visualize trends
+          effortlessly through intuitive data representation. Plus, it's highly
+          customizable to suit your specific software or industry needs.
+        </p>
       </div>
     </div>
+  </div>
 
-    <div class="header">
-      <div class="header-left">
-        <div class="menu-icon dw dw-menu"></div>
-        <div
-          class="search-toggle-icon dw dw-search2"
-          data-toggle="header_search"
-        ></div>
-        <div class="header-search" style="display: flex; align-items: center">
-          <form
-            method="POST"
-            action="{% url 'index' %}"
-            style="display: flex; align-items: center"
-          >
-            {% csrf_token %}
-            <div class="form-group mb-0" style="flex: 1">
-              <i class="dw dw-search2 search-icon"></i>
-              <input
-                type="text"
-                name="app_id"
-                class="form-control search-input"
-                placeholder="Enter App ID"
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form>
-        </div>
-      </div>
+  <div class="card-box mb-30" style="overflow-x: auto">
+    <h2 class="h4 pd-20">Reviews</h2>
+    <div style="overflow-x: auto">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 10%">User Image</th>
+            <th style="width: 10%">User Name</th>
+            <th style="width: 20%">Content</th>
+            <th style="width: 5%">Score</th>
+            <th style="width: 10%">Thumbs Up Count</th>
+            <th style="width: 10%">Review Created Version</th>
+            <th style="width: 10%">Review Date</th>
+            <th style="width: 20%">Reply Content</th>
+            <th style="width: 10%">Replied At</th>
+            <th style="width: 5%">App Version</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for review in app_reviews %}
+          <tr>
+            <td style="text-align: center">
+              <img src="{{ review.userImage }}" width="70" height="70" alt="" />
+            </td>
+            <td style="text-align: center">{{ review.userName }}</td>
+            <td style="word-wrap: break-word">{{ review.content }}</td>
+            <td style="text-align: center">{{ review.score }}</td>
+            <td style="text-align: center">{{ review.thumbsUpCount }}</td>
+            <td style="text-align: center">
+              {{ review.reviewCreatedVersion }}
+            </td>
+            <td style="text-align: center">{{ review.at }}</td>
+            <td style="word-wrap: break-word">{{ review.replyContent }}</td>
+            <td style="text-align: center">{{ review.repliedAt }}</td>
+            <td style="text-align: center">{{ review.appVersion }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
+  <div class="footer-wrap pd-20 mb-20 card-box">
+    RevAnalytix - Dashboard By Mohammed Hisham Hyder
+  </div>
+</div>
 
-    <div class="left-side-bar">
-      <div class="brand-logo">
-        <a href="index.html">
-          <img
-            src="{% static 'vendors/images/deskapp-logo.svg' %}"
-            alt=""
-            class="dark-logo"
-          />
-          <img
-            src="{% static 'vendors/images/deskapp-logo-white.svg' %}"
-            alt=""
-            class="light-logo"
-          />
-        </a>
-        <div class="close-sidebar" data-toggle="left-sidebar-close">
-          <i class="ion-close-round"></i>
-        </div>
-      </div>
-      <div class="menu-block customscroll">
-        <div class="sidebar-menu">
-          <ul id="accordion-menu">
-            <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-house-1"></span
-                ><span class="mtext">Home</span>
-              </a>
-              <ul class="submenu">
-                <li><a href="index.html">Dashboard</a></li>
-              </ul>
-            </li>
-            <!-- <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-edit2"></span
-                ><span class="mtext">Forms</span>
-              </a>
-              <ul class="submenu">
-                <li><a href="form-pickers.html">Form Pickers</a></li>
-                <li><a href="image-dropzone.html">Image Dropzone</a></li>
-              </ul>
-            </li> -->
-            <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-library"></span
-                ><span class="mtext">Tables</span>
-              </a>
-              <ul class="submenu">
-                <li>
-                  <a href="{% url 'analyze_sentiment_and_priority' %}"
-                    >Basic Tables</a
-                  >
-                </li>
-                <li><a href="datatable.html">DataTables</a></li>
-              </ul>
-            </li>
-            <!-- <li>
-              <a href="calendar.html" class="dropdown-toggle no-arrow">
-                <span class="micon dw dw-calendar1"></span
-                ><span class="mtext">Calendar</span>
-              </a>
-            </li> -->
-            <!-- <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-apartment"></span
-                ><span class="mtext"> UI Elements </span>
-              </a>
-              <ul class="submenu">
-                <li><a href="ui-timeline.html">Timeline</a></li>
-              </ul>
-            </li> -->
-            <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-analytics-21"></span
-                ><span class="mtext">Charts</span>
-              </a>
-              <ul class="submenu">
-                <li><a href="highchart.html">Highchart</a></li>
-                <li><a href="knob-chart.html">jQuery Knob</a></li>
-                <li><a href="apexcharts.html">Apexcharts</a></li>
-              </ul>
-            </li>
-            <!-- <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-browser2"></span
-                ><span class="mtext">Error Pages</span>
-              </a>
-              <ul class="submenu">
-                <li><a href="400.html">400</a></li>
-                <li><a href="503.html">503</a></li>
-              </ul>
-            </li> -->
-
-            <!-- <li class="dropdown">
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-copy"></span
-                ><span class="mtext">Extra Pages</span>
-              </a>
-              <ul class="submenu">
-                <li><a href="blog-detail.html">Blog Detail</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-              </ul>
-            </li> -->
-
-            <li>
-              <a href="{% url 'chat_page' %}" class="dropdown-toggle no-arrow">
-                <span class="micon dw dw-chat3"></span
-                ><span class="mtext">Chat</span>
-              </a>
-            </li>
-            <!-- <li>
-              <a href="invoice.html" class="dropdown-toggle no-arrow">
-                <span class="micon dw dw-invoice"></span
-                ><span class="mtext">Invoice</span>
-              </a>
-            </li> -->
-            <!-- <li>
-              <div class="dropdown-divider"></div>
-            </li> -->
-            <!-- <li>
-              <div class="sidebar-small-cap">Extra</div>
-            </li> -->
-            <!-- <li>
-              <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon dw dw-edit-2"></span
-                ><span class="mtext">Documentation</span>
-              </a>
-              <ul class="submenu">
-                <li><a href="introduction.html">Introduction</a></li>
-              </ul>
-            </li> -->
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="mobile-menu-overlay"></div>
-
-    <div class="main-container">
-      <div class="pd-ltr-20">
-        <div class="card-box pd-20 height-100-p mb-30">
-          <div class="row align-items-center">
-            <div class="col-md-4">
-              <img src="{% static 'vendors/images/banner-img.png' %}" alt="" />
-            </div>
-            <div class="col-md-8">
-              <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                Welcome To
-                <div class="weight-600 font-30 text-blue">RevAnalytix</div>
-              </h4>
-              <p class="font-18 max-width-600">
-                Discover the power of our software review analysis tool. With
-                precision sentiment analysis, it delves deep into user feedback,
-                allowing you to gauge satisfaction levels accurately. What sets
-                it apart is its ability to prioritize negative reviews, helping
-                you identify and address critical issues promptly. Visualize
-                trends effortlessly through intuitive data representation. Plus,
-                it's highly customizable to suit your specific software or
-                industry needs.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card-box mb-30" style="overflow-x: auto">
-          <h2 class="h4 pd-20">Reviews</h2>
-          <div style="overflow-x: auto">
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th style="width: 10%">User Image</th>
-                  <th style="width: 10%">User Name</th>
-                  <th style="width: 20%">Content</th>
-                  <th style="width: 5%">Score</th>
-                  <th style="width: 10%">Thumbs Up Count</th>
-                  <th style="width: 10%">Review Created Version</th>
-                  <th style="width: 10%">Review Date</th>
-                  <th style="width: 20%">Reply Content</th>
-                  <th style="width: 10%">Replied At</th>
-                  <th style="width: 5%">App Version</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for review in app_reviews %}
-                <tr>
-                  <td style="text-align: center">
-                    <img
-                      src="{{ review.userImage }}"
-                      width="70"
-                      height="70"
-                      alt=""
-                    />
-                  </td>
-                  <td style="text-align: center">{{ review.userName }}</td>
-                  <td style="word-wrap: break-word">{{ review.content }}</td>
-                  <td style="text-align: center">{{ review.score }}</td>
-                  <td style="text-align: center">{{ review.thumbsUpCount }}</td>
-                  <td style="text-align: center">
-                    {{ review.reviewCreatedVersion }}
-                  </td>
-                  <td style="text-align: center">{{ review.at }}</td>
-                  <td style="word-wrap: break-word">
-                    {{ review.replyContent }}
-                  </td>
-                  <td style="text-align: center">{{ review.repliedAt }}</td>
-                  <td style="text-align: center">{{ review.appVersion }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="footer-wrap pd-20 mb-20 card-box">
-          RevAnalytix - Dashboard By Mohammed Hisham Hyder
-        </div>
-      </div>
-    </div>
-    <!-- js -->
-    <script src="{% static 'vendors/scripts/core.js' %}"></script>
-    <script src="{% static 'vendors/scripts/script.min.js' %}"></script>
-    <script src="{% static 'vendors/scripts/process.js' %}"></script>
-    <script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
-    <script src="{% static 'src/plugins/apexcharts/apexcharts.min.js' %}"></script>
-    <script src="{% static 'src/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'src/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
-    <script src="{% static 'src/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'src/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script>
-    <script src="{% static 'vendors/scripts/dashboard.js' %}"></script>
-  </body>
-</html>
+{% endblock %}
