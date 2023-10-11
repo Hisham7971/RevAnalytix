@@ -121,6 +121,8 @@ celerybeat.pid
 
 # folder
 .vscode/
+.notebooks/data/
+.data/
 
 # Environments
 .env

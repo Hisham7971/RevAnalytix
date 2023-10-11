@@ -63,7 +63,8 @@
       type="text/css"
       href="{% static 'vendors/styles/style.css' %}"
     />
-
+    {% block index_css %} {% endblock %}
+    {% block basictable_css %} {% endblock %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
@@ -103,7 +104,7 @@
         <div class="header-search" style="display: flex; align-items: center">
           <form
             method="POST"
-            action="{% url 'index' %}"
+            action="{% url 'search_reviews' %}"
             style="display: flex; align-items: center"
           >
             {% csrf_token %}
@@ -169,7 +170,7 @@
               </a>
               <ul class="submenu">
                 <li>
-                  <a href="{% url 'basic_table' %}">Basic Tables</a>
+                  <a href="{% url 'sentiment-analysis' %}">Basic Tables</a>
                 </li>
                 <li><a href="{% url 'datatable' %}">DataTables</a></li>
               </ul>

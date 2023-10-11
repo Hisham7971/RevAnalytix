@@ -1,4 +1,53 @@
-{% extends 'base.html' %} {% block index %} {% load static %}
+{% extends 'base.html' %} {% block index %} {% block index_css %}
+<style>
+  * .table-container {
+    max-width: 100%;
+    max-height: 700px; /* Limit the height of the table */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+
+  th {
+    background-color: #72bcd9; /* Set the background color for column headers */
+    color: #fff; /* Set the text color for column headers */
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1; /* Ensure that the header is on top of the content */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 8px;
+    }
+  }
+</style>
+{% endblock %} {% load static %}
 <div class="pd-ltr-20">
   <div class="card-box pd-20 height-100-p mb-30">
     <div class="row align-items-center">
@@ -23,41 +72,39 @@
     </div>
   </div>
 
-  <div class="card-box mb-30" style="overflow-x: auto">
+  <div class="card-box mb-30">
     <h2 class="h4 pd-20">Reviews</h2>
-    <div style="overflow-x: auto">
-      <table class="table table-bordered table-striped">
+
+    <div class="table-container">
+      <table>
         <thead>
           <tr>
-            <th style="width: 10%">User Image</th>
-            <th style="width: 10%">User Name</th>
-            <th style="width: 20%">Content</th>
-            <th style="width: 5%">Score</th>
-            <th style="width: 10%">Thumbs Up Count</th>
-            <th style="width: 10%">Review Created Version</th>
-            <th style="width: 10%">Review Date</th>
-            <th style="width: 20%">Reply Content</th>
-            <th style="width: 10%">Replied At</th>
-            <th style="width: 5%">App Version</th>
+            <!-- <th>reviewId</th> -->
+            <th>userName</th>
+            <th>userImage</th>
+            <th>content</th>
+            <th>score</th>
+            <th>thumbsUpCount</th>
+            <th>reviewCreatedVersion</th>
+            <th>at</th>
+            <th>appVersion</th>
+            <!-- Add more headers as needed -->
           </tr>
         </thead>
         <tbody>
-          {% for review in app_reviews %}
+          <!-- Use your backend code to generate the table rows dynamically -->
+          {% for row in data_from_csv %}
           <tr>
-            <td style="text-align: center">
-              <img src="{{ review.userImage }}" width="70" height="70" alt="" />
-            </td>
-            <td style="text-align: center">{{ review.userName }}</td>
-            <td style="word-wrap: break-word">{{ review.content }}</td>
-            <td style="text-align: center">{{ review.score }}</td>
-            <td style="text-align: center">{{ review.thumbsUpCount }}</td>
-            <td style="text-align: center">
-              {{ review.reviewCreatedVersion }}
-            </td>
-            <td style="text-align: center">{{ review.at }}</td>
-            <td style="word-wrap: break-word">{{ review.replyContent }}</td>
-            <td style="text-align: center">{{ review.repliedAt }}</td>
-            <td style="text-align: center">{{ review.appVersion }}</td>
+            <!-- <td>{{ row.reviewId }}</td> -->
+            <td>{{ row.userName }}</td>
+            <td><img src="{{ row.userImage }}" alt="User Image"></td> <!-- Adjust the width as needed -->
+            <td >{{ row.content }}</td>
+            <td>{{ row.score }}</td>
+            <td>{{ row.thumbsUpCount }}</td>
+            <td>{{ row.reviewCreatedVersion }}</td>
+            <td>{{ row.at }}</td>
+            <td>{{ row.appVersion }}</td>
+            <!-- Add more columns as needed -->
           </tr>
           {% endfor %}
         </tbody>

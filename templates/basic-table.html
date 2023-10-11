@@ -1,4 +1,53 @@
-{% extends 'base.html' %} {% block basic-table %} {% load static %}
+{% extends 'base.html' %} {% block basic-table %} {% load static %} 
+{% block basictable_css %}
+<style>
+  * .table-container {
+    max-width: 100%;
+    max-height: 500px; /* Limit the height of the table */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  th {
+    background-color: #72bcd9; /* Set the background color for column headers */
+    color: #fff; /* Set the text color for column headers */
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1; /* Ensure that the header is on top of the content */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 8px;
+    }
+  }
+</style>
+{% endblock %}
 <div class="pd-ltr-20 xs-pd-20-10">
   <div class="min-height-200px">
     <div class="page-header">
@@ -18,46 +67,38 @@
             </ol>
           </nav>
         </div>
-        <!-- <div class="col-md-6 col-sm-12 text-right">
-                <div class="dropdown">
-                  <a
-                    class="btn btn-primary dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-toggle="dropdown"
-                  >
-                    January 2018
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Export List</a>
-                    <a class="dropdown-item" href="#">Policies</a>
-                    <a class="dropdown-item" href="#">View Assets</a>
-                  </div>
-                </div>
-              </div> -->
       </div>
     </div>
+
+
 
     <!-- P1 Table -->
     <div class="pd-20 card-box mb-30">
       <h4 class="text-blue h4">P1 Priority Table</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
+      <div class="table-container">
+        <table>
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Review Text</th>
-              <th scope="col">Sentiment Category</th>
-              <th scope="col">Sentiment Score</th>
+              <!-- <th>reviewId</th> -->
+              <tr>
+                <th>Username</th>
+                <th>Content</th>
+                <th>Review Creation Version</th>
+                <th>Review Creation Date</th>
+                <th>App Version</th>
+              </tr>
+              <!-- Add more headers as needed -->
             </tr>
           </thead>
           <tbody>
-            {% for item in priority_results.P1 %}
+            <!-- Use your backend code to generate the table rows dynamically -->
+            {% for review in p1_reviews.iterrows %}
             <tr>
-              <th scope="row">{{ forloop.counter }}</th>
-              <td>{{ item.0 }}</td>
-              <td>{{ item.1 }}</td>
-              <td>{{ item.2 }}</td>
+              <td>{{ review.1.userName }}</td>
+              <td>{{ review.1.content }}</td>
+              <td>{{ review.1.reviewCreatedVersion }}</td>
+              <td>{{ review.1.at }}</td>
+              <td>{{ review.1.appVersion }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -68,23 +109,30 @@
     <!-- P2 Table -->
     <div class="pd-20 card-box mb-30">
       <h4 class="text-blue h4">P2 Priority Table</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
+      <div class="table-container">
+        <table>
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Review Text</th>
-              <th scope="col">Sentiment Category</th>
-              <th scope="col">Sentiment Score</th>
+              <!-- <th>reviewId</th> -->
+              <tr>
+                <th>Username</th>
+                <th>Content</th>
+                <th>Review Creation Version</th>
+                <th>Review Creation Date</th>
+                <th>App Version</th>
+              </tr>
+              <!-- Add more headers as needed -->
             </tr>
           </thead>
           <tbody>
-            {% for item in priority_results.P2 %}
+            <!-- Use your backend code to generate the table rows dynamically -->
+            {% for review in p2_reviews.iterrows %}
             <tr>
-              <th scope="row">{{ forloop.counter }}</th>
-              <td>{{ item.0 }}</td>
-              <td>{{ item.1 }}</td>
-              <td>{{ item.2 }}</td>
+              <td>{{ review.1.userName }}</td>
+              <td>{{ review.1.content }}</td>
+              <td>{{ review.1.reviewCreatedVersion }}</td>
+              <td>{{ review.1.at }}</td>
+              <td>{{ review.1.appVersion }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -95,23 +143,30 @@
     <!-- P3 Table -->
     <div class="pd-20 card-box mb-30">
       <h4 class="text-blue h4">P3 Priority Table</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
+      <div class="table-container">
+        <table>
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Review Text</th>
-              <th scope="col">Sentiment Category</th>
-              <th scope="col">Sentiment Score</th>
+              <!-- <th>reviewId</th> -->
+              <tr>
+                <th>Username</th>
+                <th>Content</th>
+                <th>Review Creation Version</th>
+                <th>Review Creation Date</th>
+                <th>App Version</th>
+              </tr>
+              <!-- Add more headers as needed -->
             </tr>
           </thead>
           <tbody>
-            {% for item in priority_results.P3 %}
+            <!-- Use your backend code to generate the table rows dynamically -->
+            {% for review in p3_reviews.iterrows %}
             <tr>
-              <th scope="row">{{ forloop.counter }}</th>
-              <td>{{ item.0 }}</td>
-              <td>{{ item.1 }}</td>
-              <td>{{ item.2 }}</td>
+              <td>{{ review.1.userName }}</td>
+              <td>{{ review.1.content }}</td>
+              <td>{{ review.1.reviewCreatedVersion }}</td>
+              <td>{{ review.1.at }}</td>
+              <td>{{ review.1.appVersion }}</td>
             </tr>
             {% endfor %}
           </tbody>
