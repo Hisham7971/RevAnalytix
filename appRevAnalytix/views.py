@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 import os
 import pandas as pd
 from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
@@ -7,6 +8,7 @@ import numpy as np
 import re
 import emoji
 import plotly.express as px
+import plotly.offline as opy
 from google_play_scraper import Sort, reviews_all
 
 
@@ -36,33 +38,27 @@ def search_and_display_reviews(request):
             return render(request, 'index.html', context)
 
         try:
-            # Check if the CSV file exists
+            # Fetch app reviews
             directory = 'data/'
-            csv_filename = os.path.join(directory, f'{app_id}.csv')
+            csv_filename = os.path.join(directory, 'input.csv')
+            
+            result = reviews_all(
+                app_id,
+                sleep_milliseconds=0,
+                lang='en',
+                country='us',
+                sort=Sort.NEWEST
+            )
 
-            if os.path.exists(csv_filename):
-                # Read the CSV file into a DataFrame
-                df = pd.read_csv(csv_filename)
-                data_from_csv = df.to_dict(orient='records')
-            else:
-                # Fetch app reviews if the CSV file doesn't exist
-                result = reviews_all(
-                    app_id,
-                    sleep_milliseconds=0,
-                    lang='en',
-                    country='us',
-                    sort=Sort.NEWEST
-                )
+            # Create a DataFrame from the result
+            df = pd.DataFrame(result)
 
-                # Create a DataFrame from the result
-                df = pd.DataFrame(result)
+            # Save the DataFrame to a CSV file, overwriting the existing one
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            df.to_csv(csv_filename, index=False)
 
-                # Save the DataFrame to a CSV file
-                if not os.path.exists(directory):
-                    os.makedirs(directory)
-                df.to_csv(csv_filename, index=False)
-
-                data_from_csv = df.to_dict(orient='records')
+            data_from_csv = df.to_dict(orient='records')
 
             context = {
                 'data_from_csv': data_from_csv
@@ -78,7 +74,7 @@ def search_and_display_reviews(request):
     else:
         return render(request, 'index.html')
 
-# ------------------------------Sentiment & Priority------------------------------ #
+# ------------------------------Text Preprocess------------------------------ #
 
 # Preprocess function
 def preprocess(text):
@@ -89,6 +85,8 @@ def preprocess(text):
     # Convert to lowercase
     text = text.lower()
     return ' '.join(text.split())
+
+# ------------------------------Sentiment & Priority------------------------------ #
 
 # Sentiment analysis and priority categorization function
 def sentiment_analysis_and_priority(row):
@@ -134,9 +132,9 @@ def sentiment_analysis_and_priority(row):
         # Use the probability score of the negative sentiment and the rating to categorize priority
         negative_score = scores[0]
         rating = row['score']
-        if negative_score > 0.7:
+        if negative_score > 0.7 or rating <= 2:
             priority = 'P1'
-        elif negative_score > 0.5 or rating <= 2:
+        elif negative_score > 0.5 or rating == 3:
             priority = 'P2'
         else:
             priority = 'P3'
@@ -144,15 +142,19 @@ def sentiment_analysis_and_priority(row):
         priority = None
     
     return sentiment, sentiment_score, priority
-
+# ------------------------------Sentiment View------------------------------ #
 
 def sentiment_analysis_view(request):
     try:
+        # Check if the CSV file exists
+        directory = 'data/'
+        csv_filename = os.path.join(directory, 'input.csv')
+
         # Load the CSV data
-        df = pd.read_csv('data/in.evolve.android.csv')
+        df = pd.read_csv(csv_filename)
 
         # Apply sentiment analysis and priority categorization to the data
-        df[['sentiment', 'sentiment_score', 'priority']] = df.apply(sentiment_analysis_and_priority, axis=1, result_type='expand')
+        df[['sentiment', 'sentiment_score', 'priority']] = df.apply(sentiment_analysis_and_priority, axis=1, result_type='expand')  # Add 'axis=1' to apply to rows
 
         # Filter rows with 'negative' sentiment and non-null priority
         negative_reviews = df[(df['sentiment'] == 'negative') & ~df['priority'].isnull()]
@@ -167,6 +169,14 @@ def sentiment_analysis_view(request):
             'p2_reviews': p2_reviews,
             'p3_reviews': p3_reviews,
         }
+        # Create a new DataFrame with all the columns including 'sentiment', 'sentiment_score', and 'priority'
+        new_df = df[['reviewId', 'userName', 'userImage', 'content', 'score', 'thumbsUpCount', 'reviewCreatedVersion', 'at', 'replyContent', 'repliedAt', 'appVersion', 'sentiment', 'sentiment_score', 'priority']]
+
+        # Define the path for the new CSV file
+        new_csv_filename = os.path.join(directory, 'output.csv')
+
+        # Save the new DataFrame to the new CSV file
+        new_df.to_csv(new_csv_filename, index=False)
 
         return render(request, 'basic-table.html', context)
 
@@ -175,7 +185,52 @@ def sentiment_analysis_view(request):
         return render(request, '400.html', {'error_message': error_message})
 
 
+def generate_charts(request):
+    # Load your data (replace with your actual data source)
+    data = pd.read_csv('data/output.csv')
 
+        # Data Analysis 1: Histogram of 'score'
+    score_histogram = px.histogram(data, x='score', title='Review Score Distribution')
+
+    # Data Analysis 2: Box Plot of 'score' by 'sentiment'
+    box_plot = px.box(data, x='sentiment', y='score', title='Review Scores by Sentiment')
+
+    # Data Analysis 3: Scatter Matrix of selected columns
+    scatter_matrix = px.scatter_matrix(data, dimensions=['score', 'thumbsUpCount', 'sentiment_score'], title='Scatter Matrix')
+
+    # Data Analysis 4: Heatmap of correlation between columns
+    heatmap = px.imshow(data.corr(), title='Correlation Heatmap')
+
+    # Data Analysis 5: Bar Chart of reviews by app version
+    app_version_bar_chart = px.bar(data['appVersion'].value_counts(), x=data['appVersion'].value_counts().index, y=data['appVersion'].value_counts().values, title='Reviews by App Version')
+
+    # Data Analysis 6: Time Series Line Chart of review counts over time
+    data['at'] = pd.to_datetime(data['at'])
+    # Aggregate data to count reviews by date
+    review_counts = data.groupby(data['at'].dt.date)['reviewId'].count().reset_index()
+    
+    time_series_line_chart = px.line(review_counts, x='at', y='reviewId', title='Review Count Over Time')
+
+
+    # Convert the Plotly figures to HTML
+    score_histogram_html = opy.plot(score_histogram, auto_open=False, output_type='div')
+    box_plot_html = opy.plot(box_plot, auto_open=False, output_type='div')
+    scatter_matrix_html = opy.plot(scatter_matrix, auto_open=False, output_type='div')
+    heatmap_html = opy.plot(heatmap, auto_open=False, output_type='div')
+    app_version_bar_chart_html = opy.plot(app_version_bar_chart, auto_open=False, output_type='div')
+    time_series_line_chart_html = opy.plot(time_series_line_chart, auto_open=False, output_type='div')
+
+    # Pass the HTML content to the template
+    context = {
+        'score_histogram_html': score_histogram_html,
+        'box_plot_html': box_plot_html,
+        'scatter_matrix_html': scatter_matrix_html,
+        'heatmap_html': heatmap_html,
+        'app_version_bar_chart_html': app_version_bar_chart_html,
+        'time_series_line_chart_html': time_series_line_chart_html,
+    }
+
+    return render(request, 'highchart.html', context)
 
 
 

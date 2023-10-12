@@ -11,5 +11,6 @@ urlpatterns = [
     path('knob-chart.html/', views.knob_chart, name='knob_chart'),
     path('apexcharts.html/', views.apexcharts, name='apexcharts'),
     path('search_reviews/', views.search_and_display_reviews, name='search_reviews'),
-    path('sentiment-analysis/', views.sentiment_analysis_view, name='sentiment-analysis')
+    path('sentiment-analysis/', views.sentiment_analysis_view, name='sentiment-analysis'),
+    path('generate_charts/', views.generate_charts, name='generate_charts'),
 ]
