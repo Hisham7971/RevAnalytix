@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1080" height="1080" viewBox="0 0 1080 1080" xml:space="preserve">
+<desc>Created with Fabric.js 5.2.4</desc>
+<defs>
+</defs>
+<g transform="matrix(1 0 0 1 540 540)" id="215d3334-8665-4c7d-add7-6a5581bdddf3"  >
+</g>
+<g transform="matrix(1 0 0 1 540 540)" id="66c454d4-b585-480c-935f-9a103de251e8"  >
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke"  x="-540" y="-540" rx="0" ry="0" width="1080" height="1080" />
+</g>
+<g transform="matrix(1 0 0 1 425.32 526.3)"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,81,189); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-13.64, -13.8)" d="M 25.58 27.609 L 1.705 27.609 C 0.7576640861436398 27.602943408948757 -0.00554007894913866 26.83033907525366 -2.220446049250313e-16 25.883 L 0 1.725 C -0.004985959509047472 0.7780504700214935 0.7580567160143136 0.006057147277916508 1.7049999999999987 0 L 25.58 0 C 26.526943283985684 0.006057147277916067 27.289985959509043 0.778050470021493 27.284999999999997 1.7249999999999994 L 27.284999999999997 25.883 C 27.290540078949135 26.83033907525366 26.52733591385636 27.602943408948757 25.58 27.609 Z M 25.58 27.609" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 438.86 539.36)"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,236,207); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-145.89, -142.89)" d="M 153.947 155.781 L 137.834 155.781 C 135.16562604942152 155.77769414368652 133.0033058563135 153.6153739505785 133 150.947 L 133 134.834 C 133.0033058563135 132.16562604942152 135.16562604942152 130.0033058563135 137.834 130 L 153.947 130 C 156.6153739505785 130.0033058563135 158.77769414368652 132.16562604942152 158.781 134.834 L 158.781 150.947 C 158.77769414368652 153.6153739505785 156.6153739505785 155.77769414368652 153.947 155.781 Z M 153.947 155.781" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 445.35 539.36)"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,202,177); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-260.39, -142.89)" d="M 261.949 130 L 254 130 L 254 155.781 L 261.949 155.781 C 264.6173739505785 155.77769414368652 266.7796941436865 153.6153739505785 266.783 150.947 L 266.783 134.834 C 266.7796941436865 132.16562604942152 264.6173739505785 130.0033058563135 261.949 130 Z M 261.949 130" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 453.79 554.61)"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(209,19,114); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-284.89, -284.89)" d="M 284.891 297.781 C 277.7714972899313 297.781 272.00000000000006 292.0095027100688 272.00000000000006 284.89 C 272.00000000000006 277.77049728993126 277.7714972899313 271.999 284.891 271.999 C 292.0105027100688 271.999 297.78200000000004 277.77049728993126 297.78200000000004 284.89 C 297.7742840499743 292.00630420854117 292.0073042085412 297.7732840499743 284.891 297.781 Z M 284.891 297.781" stroke-linecap="round" />
+</g>
+<g transform="matrix(1 0 0 1 590.47 540)" style="" id="3fcedd85-2502-4d0e-8601-d01972111516"  >
+		<text xml:space="preserve" font-family="Lato" font-size="40" font-style="normal" font-weight="400" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1; white-space: pre;" ><tspan x="-105.4" y="12.57" >RevAnalytix</tspan></text>
+</g>
+</svg>
